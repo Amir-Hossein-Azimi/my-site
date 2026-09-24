@@ -7,5 +7,5 @@ urlpatterns = [
     #path('url address','view')
     path('',blog_view , name='index'),
     path('single',blog_single , name='single'),
-
+    path('test',blog_test, name='test')
 ]
