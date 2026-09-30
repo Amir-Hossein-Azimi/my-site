@@ -4,3 +4,4 @@ sqlparse
 packaging
 setuptools
 wheel
+Pillow
