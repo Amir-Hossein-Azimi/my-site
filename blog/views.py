@@ -14,10 +14,13 @@ def blog_single(request , pid):
     context = {'post':post}
     return render(request,'blog/blog-single.html',context)
 
-def blog_test(request,pid):
+# def blog_test(request,pid):
     #posts = Post.objects.filter(status=1) -> or in html manage it
     #posts = Post.objects.all()
     #post = Post.objects.get(pk=pid)
     post = get_object_or_404(Post, pk=pid)
     context = {'post':post}
     return render(request,'test.html',context)
+
+def test(request):
+    return render(request,'test.html')
