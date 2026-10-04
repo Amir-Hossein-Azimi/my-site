@@ -10,7 +10,7 @@
 <body>
     <p>test: {% posts as totalPosts %}</p>
     {% for post in totalPosts %}
-        <p>{{post}}</p>
+        <p>{{post.content | snippet:100}}</p>
     {% endfor %}
 </body>
 </html>
