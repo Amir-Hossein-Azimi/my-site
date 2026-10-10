@@ -29,3 +29,8 @@ def postcategories():
     for name in categories:
         cat_dict[name]=posts.filter(category=name).count()
     return {'categories':cat_dict}
+
+@register.inclusion_tag('website/post_slider.html')
+def renderposts():
+    posts = Post.objects.filter(status=1).order_by('published_date')
+    return {'posts':posts}
