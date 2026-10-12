@@ -12,7 +12,8 @@
 					Contact Us
 				</h1>
 				<p class="text-white link-nav"><a href="index.html">Home </a> <span class="lnr lnr-arrow-right"></span>
-					<a href="contact.html"> Contact Us</a></p>
+					<a href="contact.html"> Contact Us</a>
+				</p>
 			</div>
 		</div>
 	</div>
@@ -56,7 +57,7 @@
 				</div>
 			</div>
 			<div class="col-lg-8">
-				<form class="form-area contact-form text-right"  action="{% url 'website:contact' %}" method="post">
+				<form class="form-area contact-form text-right" action="{% url 'website:contact' %}" method="post">
 					{% csrf_token %}
 					<div class="row">
 						<div class="col-lg-6 form-group">
@@ -77,13 +78,51 @@
 							<textarea class="common-textarea form-control" name="message" placeholder="Enter Messege"
 								onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Messege'"
 								required=""></textarea>
-						</div> 
+						</div>
 						<div class="col-lg-12">
 							<div class="alert-msg" style="text-align: left;"></div>
 							<button type="submit" class="genric-btn primary" style="float: right;">Send Message</button>
 						</div>
 					</div>
 				</form>
+				<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+				{% if messages %}
+				<script>
+					// تنظیمات کلی برای نمایش به صورت Toast (پاپ‌آپ گوشه صفحه)
+					const Toast = Swal.mixin({
+						toast: true,
+						position: 'top-end', // محل نمایش: بالا سمت راست
+						showConfirmButton: false,
+						timer: 4000, // زمان نمایش به میلی‌ثانیه (۴ ثانیه)
+						timerProgressBar: true, // نوار پیشرفت زمان
+						didOpen: (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer)
+							toast.addEventListener('mouseleave', Swal.resumeTimer)
+						}
+					});
+
+					// حلقه روی پیام‌های جنگو و نمایش آن‌ها
+					{% for message in messages %}
+					// مپ کردن تگ‌های جنگو (success, error, warning, info) به آیکون‌های سوییت‌آلرت
+					var iconType = 'info'; // حالت پیش‌فرض
+
+					{% if 'success' in message.tags %}
+					iconType = 'success';
+					{% elif 'error' in message.tags %}
+					iconType = 'error';
+					{% elif 'warning' in message.tags %}
+					iconType = 'warning';
+					{% endif %}
+
+					// اجرای پاپ‌آپ
+					Toast.fire({
+						icon: iconType,
+						title: '{{ message }}'
+					});
+					{% endfor %}
+				</script>
+				{% endif %}
 			</div>
 		</div>
 	</div>
