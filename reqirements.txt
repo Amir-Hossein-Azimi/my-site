@@ -5,3 +5,4 @@ packaging
 setuptools
 wheel
 Pillow
+django-extensions
